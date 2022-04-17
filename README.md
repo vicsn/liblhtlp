@@ -8,6 +8,14 @@ Applications](https://eprint.iacr.org/2019/635.pdf) - Section 4.1
 - `gcc v9.2.1`
 - `gmp v6.2.0-1`
 
+## Usage
+
+```
+mkdir -p build lib
+make
+cd test && make build && make
+```
+
 ## Contributing
 
 Please raise a GitHub issue if the code is not working.

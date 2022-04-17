@@ -27,6 +27,7 @@ LHP_puzzle_t puzzle ;
 LHP_puzzle_t *puzzle_array ;
 LHP_puzzle_t dest_puzzle ;
 LHP_puzzle_sol_t solution ;
+LHP_puzzle_sol_t solution2 ;
 
 /* Initailization code */
 static void INIT ()
@@ -98,6 +99,30 @@ static void BATCH_TEST ()
 	mpz_clear (num) ;
 }
 
+// Experiment 5 : Use homomorphic properties
+static void HOMOMORPHIC_TEST ()
+{
+	mpz_t num2 ;
+	mpz_init_set_ui ( num2 , 0 ) ;
+	for( int i = 0 ; i < len ; i++ ) {
+		mpz_mul_ui ( num2 , num2 , 1 << 8 ) ;
+		mpz_add_ui ( num2 , num2 , (uint8_t)str[i] ) ;
+	}
+	mpz_mul_ui ( num2 , num2 , 2 ) ; // Because we add it in both Gen and Add
+	LHP_init_puzzle ( &puzzle ) ;
+	LHP_PGen ( &puzzle , &param , str, len ) ;
+	LHP_PAdd ( &puzzle , &param , str, len ) ;
+	mpz_init ( solution2 .s ) ;
+	LHP_PSolve ( &param , &puzzle , &solution2 ) ;
+	if ( mpz_cmp ( num2 , solution2 .s ) == 0 ) {
+		SUCCESS ( "Homomorphic" ) ;
+	}
+	else {
+		FAILED ( "Homomorphic" ) ;
+	}
+	mpz_clear (num2) ;
+}
+
 static void CLEAN ()
 {
 	for ( int i = 0 ; i < n ; i ++ ) {
@@ -116,6 +141,7 @@ int main ( int argc , char* argv[] )
 	GEN_TEST ();
 	SOLVE_TEST ();
 	BATCH_TEST ();
+	HOMOMORPHIC_TEST ();
 	CLEAN (); // Clean up
 	return 0 ;
 }

@@ -22,6 +22,8 @@ void LHP_PGen_seeded ( LHP_puzzle_t* puzzle ,
 		unsigned char* seed, size_t seed_len 
 	) ;
 
+void LHP_PAdd ( LHP_puzzle_t* puzzle , LHP_param_t* pp , unsigned char* , size_t ) ;
+
 void LHP_PSolve ( LHP_param_t* pp , LHP_puzzle_t* Z , LHP_puzzle_sol_t* ) ;
 
 // Setup variable number of arguments

@@ -42,7 +42,7 @@ void generate_prime_preseeded ( mpz_t p ,
 /* Strong prime generation code
  *
  * Step 1: Generate p'
- * Step 2: Make sure p' is prime
+ * Step 2: Make sure p' is prime // TODO: I don't see this happening
  * Step 3: Get p = 2p'+1
  * Step 4: Ensure that p is prime
  * */
